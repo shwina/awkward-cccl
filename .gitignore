@@ -1,0 +1,4 @@
+*.sqlite
+*.nsys-rep
+*__pycache__
+*.ipynb_checkpoints
