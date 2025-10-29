@@ -1,0 +1,30 @@
+services:
+  jupyter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        GIT_BRANCH_NAME: ${GIT_BRANCH_NAME:-main}
+    image: ghcr.io/${GITHUB_REPOSITORY:-shwina/awkward-cccl}:latest
+    pull_policy: always
+    privileged: true
+    ulimits:
+      memlock: -1
+      stack: 67108864
+    shm_size: 1g
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    ports:
+      - "0.0.0.0:8888:8888"
+    volumes:
+      - /home/ubuntu/awkward-cccl:/awkward-cccl
+    environment:
+      - BREV_ENV_ID
+    user: root
+    working_dir: /awkward-cccl
+    restart: unless-stopped

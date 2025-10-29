@@ -19,12 +19,12 @@ def compute_mass(mu1, mu2):
     mass = make_like_offsets(mu1.pt)
     d_out = mass.layout.content.data
 
-    Muon = gpu_struct({
-            "pt": np.float32,
-            "eta": np.float32,
-            "phi": np.float32,
-            "charge": np.int32
-        })
+    @gpu_struct
+    class Muon:
+        pt: np.float32
+        eta: np.float32
+        phi: np.float32
+        charge: np.int32
 
     def op(mu1: Muon, mu2: Muon) -> np.float32:
         return (

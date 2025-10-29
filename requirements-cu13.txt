@@ -1,0 +1,14 @@
+awkward
+cuda-bindings
+cupy-cuda12x
+numpy
+nvtx
+uproot
+aiohttp
+cuda-cccl[test-cu13]
+jupyter
+jupyterlab
+rise
+matplotlib
+git+https://github.com/brycelelbach/nsightful.git
+

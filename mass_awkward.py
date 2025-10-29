@@ -18,7 +18,7 @@ muons = ak.zip(
         "charge": arrays["Muon_charge"],
     }
 )
-muons = ak.concatenate([muons] * 100)
+muons = ak.concatenate([muons] * 100)  # artificially increase data size
 
 pairs = ak.combinations(muons, 2)
 pairs = ak.to_backend(pairs, "cuda")
@@ -32,7 +32,7 @@ mass = np.sqrt(
 cp.cuda.Device().synchronize()
 
 # benchmark run:
-with nvtx.annotate("mass_calculations"):
+with nvtx.annotate("mass_calculation"):
     mass = np.sqrt(
         2 * mu1.pt * mu2.pt * (np.cosh(mu1.eta - mu2.eta) - np.cos(mu1.phi - mu2.phi))
     )
